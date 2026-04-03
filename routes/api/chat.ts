@@ -1,22 +1,15 @@
-import { defineHandler } from "nitro";
 import { createDeepSeek } from "@ai-sdk/deepseek";
 import { convertToModelMessages, streamText } from "ai";
-import { env } from "node:process";
-import { any, array, object, parse } from "valibot";
+import { Hono } from "hono";
 
-const { DEEPSEEK_API_KEY } = env;
+const { DEEPSEEK_API_KEY } = Bun.env;
 
 export const deepseek = createDeepSeek({
   apiKey: DEEPSEEK_API_KEY,
 });
 
-const RequestSch = object({
-  messages: array(any()),
-});
-
-export default defineHandler(async (event) => {
-  const body = await event.req.json();
-  const { messages } = parse(RequestSch, body);
+export const chat = new Hono().post("/completions", async (ctx) => {
+  const { messages } = await ctx.req.json();
   const result = streamText({
     model: deepseek("deepseek-reasoner"),
     messages: await convertToModelMessages(messages),
