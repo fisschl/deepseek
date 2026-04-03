@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun run --hot index.ts",
-    "build": "vite build"
+    "build": "bun build index.ts --target bun --production --outfile dist/index.mjs"
   },
   "dependencies": {
     "@ai-sdk/deepseek": "^2.0.27",
