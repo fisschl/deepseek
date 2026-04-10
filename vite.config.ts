@@ -2,5 +2,10 @@ import { defineConfig } from "vite";
 import { nitro } from "nitro/vite";
 
 export default defineConfig({
-  plugins: [nitro({ serverDir: "./server" })],
+  plugins: [
+    nitro({
+      preset: "node-server",
+      serverDir: "./server",
+    }),
+  ],
 });
