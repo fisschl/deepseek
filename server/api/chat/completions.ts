@@ -11,9 +11,10 @@ const deepseek = createDeepSeek({
 
 export default defineHandler(async (event) => {
   const body: Record<string, any> = await event.req.json();
+  const { model } = body;
 
   const result = streamText({
-    model: deepseek("deepseek-reasoner"),
+    model: deepseek(model || "deepseek-v4-flash"),
     messages: await convertToModelMessages(body.messages),
   });
 
