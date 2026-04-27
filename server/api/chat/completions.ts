@@ -11,11 +11,18 @@ const deepseek = createDeepSeek({
 
 export default defineHandler(async (event) => {
   const body: Record<string, any> = await event.req.json();
-  const { model } = body;
 
   const result = streamText({
-    model: deepseek(model || "deepseek-v4-flash"),
+    model: deepseek(body.model || "deepseek-v4-flash"),
     messages: await convertToModelMessages(body.messages),
+    providerOptions: {
+      deepseek: {
+        /**
+         * thinking: { type: 'enabled' | 'disabled' }
+         */
+        thinking: body.thinking,
+      },
+    },
   });
 
   return result.toUIMessageStreamResponse();
