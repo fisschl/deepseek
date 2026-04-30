@@ -1,19 +1,14 @@
-import { env } from "node:process";
-import { createDeepSeek } from "@ai-sdk/deepseek";
 import { convertToModelMessages, streamText } from "ai";
 import { defineHandler } from "nitro";
-
-const { DEEPSEEK_API_KEY } = env;
-
-export const deepseek = createDeepSeek({
-  apiKey: DEEPSEEK_API_KEY,
-});
+import { deepseek } from "./completions";
 
 export default defineHandler(async (event) => {
   const body: Record<string, any> = await event.req.json();
 
   const result = streamText({
-    model: deepseek(body.model || "deepseek-v4-flash"),
+    model: deepseek("deepseek-v4-flash"),
+    system:
+      "你是一个专业翻译引擎。自动检测源语言并翻译为中文，专业术语使用行业通用译法，仅输出翻译结果。",
     messages: await convertToModelMessages(body.messages),
   });
 
