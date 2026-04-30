@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": [
+    "**/.agents/**",
+    "**/assets/**",
+    "**/dist/**",
+    "**/*.d.ts",
+    "**/*.js",
+    "**/*.mjs"
+  ],
+  "plugins": ["eslint", "typescript", "unicorn", "oxc", "import", "promise"]
+}

@@ -1,7 +1,7 @@
+import { env } from "node:process";
 import { createDeepSeek } from "@ai-sdk/deepseek";
 import { convertToModelMessages, streamText } from "ai";
 import { defineHandler } from "nitro";
-import { env } from "node:process";
 
 const { DEEPSEEK_API_KEY } = env;
 
@@ -15,14 +15,6 @@ export default defineHandler(async (event) => {
   const result = streamText({
     model: deepseek(body.model || "deepseek-v4-flash"),
     messages: await convertToModelMessages(body.messages),
-    providerOptions: {
-      deepseek: {
-        /**
-         * thinking: { type: 'enabled' | 'disabled' }
-         */
-        thinking: body.thinking,
-      },
-    },
   });
 
   return result.toUIMessageStreamResponse();
