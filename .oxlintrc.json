@@ -8,5 +8,9 @@
     "**/*.js",
     "**/*.mjs"
   ],
-  "plugins": ["eslint", "typescript", "unicorn", "oxc", "import", "promise"]
+  "plugins": ["eslint", "typescript", "unicorn", "oxc", "import", "promise"],
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
+  }
 }
