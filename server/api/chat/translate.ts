@@ -1,14 +1,11 @@
-import { convertToModelMessages, streamText, validateUIMessages } from "ai";
+import { convertToModelMessages, streamText, type UIMessage } from "ai";
 import { defineHandler } from "nitro";
 import { deepseek } from "./completions";
 
-export default defineHandler<any>(async (event) => {
+export default defineHandler<{ body: { messages: UIMessage[] } }>(async (event) => {
   const body = await event.req.json();
-  const messages = await validateUIMessages({
-    messages: body.messages,
-  });
 
-  messages
+  body.messages
     .filter((item) => item.role === "user")
     .forEach((message) => {
       const part = message.parts.find((part) => part.type === "text");
@@ -24,7 +21,7 @@ export default defineHandler<any>(async (event) => {
   const result = streamText({
     model: deepseek("deepseek-v4-flash"),
     system,
-    messages: await convertToModelMessages(messages),
+    messages: await convertToModelMessages(body.messages),
   });
 
   return result.toUIMessageStreamResponse();
