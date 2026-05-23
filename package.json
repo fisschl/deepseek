@@ -9,19 +9,17 @@
   "dependencies": {
     "@ai-sdk/deepseek": "^2.0.35",
     "@tsconfig/node24": "^24.0.4",
-    "ai": "^6.0.185",
-    "hono": "^4.12.21",
+    "ai": "^6.0.190",
     "jiti": "^2.7.0",
     "nitro": "3.0.260429-beta",
     "typescript": "^6.0.3",
     "uuid": "^14.0.0",
     "valibot": "^1.4.0",
-    "vite": "^8.0.13"
+    "vite": "^8.0.14"
   },
   "devDependencies": {
     "@types/node": "^25.9.1",
     "oxfmt": "^0.51.0",
-    "oxlint": "^1.66.0",
-    "oxlint-tsgolint": "^0.23.0"
+    "oxlint": "^1.66.0"
   }
 }

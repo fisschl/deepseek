@@ -11,15 +11,17 @@ export const deepseek = createDeepSeek({
 
 interface ChatRequest {
   model?: string;
+  system?: string;
   messages: UIMessage[];
 }
 
 export default defineHandler<{ body: ChatRequest }>(async (event) => {
-  const { model, messages } = await event.req.json();
+  const body = await event.req.json();
 
   const result = streamText({
-    model: deepseek(model || "deepseek-v4-flash"),
-    messages: await convertToModelMessages(messages),
+    model: deepseek(body.model || "deepseek-v4-flash"),
+    system: body.system,
+    messages: await convertToModelMessages(body.messages),
   });
 
   return result.toUIMessageStreamResponse();

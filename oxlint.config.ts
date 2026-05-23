@@ -1,17 +1,8 @@
 import { defineConfig } from "oxlint";
 
+export const ignorePatterns = ["**/.agents/**", "**/dist/**", "*.d.ts"];
+
 export default defineConfig({
-  ignorePatterns: [
-    "**/.agents/**",
-    "**/assets/**",
-    "**/dist/**",
-    "**/*.d.ts",
-    "**/*.js",
-    "**/*.mjs",
-  ],
+  ignorePatterns,
   plugins: ["eslint", "typescript", "unicorn", "oxc", "import", "promise"],
-  options: {
-    typeAware: true,
-    typeCheck: true,
-  },
 });
